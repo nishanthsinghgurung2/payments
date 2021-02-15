@@ -1,11 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const { v4: uuid } = require('uuid');
 const app = express()
 const port = process.env.PORT || 8080
 const payments = []
 
 app.use(bodyParser.json())
+app.use(cors())
 
 app.get('/payments', (req, res) => res.send(payments))
 
@@ -51,7 +53,7 @@ app.delete('/payments/:id', (req, res) => {
     if (payment) {
       const index = payments.indexOf(payment)
       payments.splice(index, 1)
-      return res.status(204).end()
+      return res.send(payment)
     }
 
     res.status(404).end()

@@ -1,51 +1,29 @@
 import React from 'react'
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from 'react-router-dom'
 import store from './state/store'
-import { createPayment } from './state/payments'
+import AddNewPayment from './components/AddNewPayment'
+import Home from './components/Home';
+import EditPayment from './components/EditPayment'
 
 export default () => (
-  <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/example">
-          <Example />
-        </Route>
-      </Switch>
-    </Router>
-  </Provider>
-)
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-    <Link to="/example">Go to /example</Link>
+  <div className="App">
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/add-new-payment">
+            <AddNewPayment />
+          </Route>
+          <Route exact path="/edit-payment/:paymentId" component={EditPayment} />
+        </Switch>
+      </Router>
+    </Provider>
   </div>
 )
-
-const Example = () => {
-  const dispatch = useDispatch()
-  const payments = useSelector(store => store.payments)
-
-  const exampleAddPayment = () => dispatch(createPayment({
-    name: 'Hello World',
-  }))
-
-  return (
-    <div>
-      <h2>Example</h2>
-      {payments.map((payment, index) => (
-        <p key={index}>{payment.name}</p>
-      ))}
-      <button onClick={exampleAddPayment}>Add Payment</button>
-    </div>
-  )
-}

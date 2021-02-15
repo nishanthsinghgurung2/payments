@@ -1,0 +1,46 @@
+@import url("../App.css");
+
+.payments-container {
+    height: 100%;
+}
+.payments-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.payments-main-container {
+    width: 50%;
+}
+
+.payment {
+    display: flex;
+    text-decoration: none;
+    color: black;
+}
+
+.name-frequency {
+    text-align: left;
+}
+
+.amount-start-date {
+    text-align: right;
+}
+
+.payment .payment-details {
+    flex: 1;
+    border-bottom: 1px solid #d0d5dc;
+}
+
+.payment-heading {
+    font-size: 20px;
+}
+
+.payment-content {
+    color: #8d99aa
+}
+
+.no-payments {
+    margin: 20px;
+}
