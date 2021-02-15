@@ -29,3 +29,4 @@ Please provide a URL to a public repository containing your task submission.
 Instructions on how to run the script are useful to include.
 
 ### Thank you for your time and effort! ###
+# payments
