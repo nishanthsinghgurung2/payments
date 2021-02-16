@@ -59,6 +59,13 @@ const paymentsSlice = createSlice({
     },
     [addNewPayment.fulfilled]: (state, action) => {
       state.payments.push(action.payload);
+    },
+    [editPaymentDetails.fulfilled]: (state, action) => {
+      state.payments = state.payments.filter(payment => payment.id !== action.payload.id);
+      state.payments.push(action.payload);
+    },
+    [deletePaymentDetails.fulfilled]: (state, action) => {
+      state.payments = state.payments.filter(payment => payment.id !== action.payload.id);
     }
   }
 })
@@ -66,6 +73,11 @@ const paymentsSlice = createSlice({
 const { actions, reducer } = paymentsSlice
 export const { createPayment, updatePayment, deletePayment } = actions
 export const selectAllPayments = state => state.payments.payments
-export const selectPaymentById = (state, paymentId) => 
-  state.payments.payments.find((payment) => payment.id === paymentId)
+export const selectPaymentById = (state, paymentId) => {
+  // console.log('state.payments..selector.', state.payments);
+  let updatedState = state.payments.payments.find((payment) => payment.id === paymentId)
+  // console.log('state.payments..selector...1...', updatedState);
+  return updatedState;
+}
+  
 export default reducer

@@ -6,7 +6,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 const EditPayment = ({ match }) => {
     const paymentId = match && match.params? match.params.paymentId: null;
-    const payment = useSelector((state) => selectPaymentById(state,paymentId ));
+    const payment = useSelector((state) => selectPaymentById(state,paymentId));
 
     const [name, setName] = useState(payment? payment.name: '');
     const [amount, setAmount] = useState(payment? payment.amount: '');
@@ -29,8 +29,8 @@ const EditPayment = ({ match }) => {
         try {
             setEditPaymentStatus('pending');
             const editPaymentAction = await dispatch(editPaymentDetails({ name, amount, frequency, startDate, id}));
-            setEditPaymentStatus('success');
             unwrapResult(editPaymentAction);
+            setEditPaymentStatus('success');
         } catch(error) {
             setEditPaymentStatus('error');
             console.log('Error occured while updating payment');
@@ -43,12 +43,12 @@ const EditPayment = ({ match }) => {
         try {
             setDeletePaymentStatus('pending');
             const deletePaymentAction = await dispatch(deletePaymentDetails(id));
+            unwrapResult(deletePaymentAction);
             setDeletePaymentStatus('success');
             setName('');
             setAmount('');
             setStartDate('');
             setFrequency('');
-            unwrapResult(deletePaymentAction);
         } catch(error) {
             setDeletePaymentStatus('error');
             console.log('Error occured while deleting payment');

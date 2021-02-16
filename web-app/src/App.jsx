@@ -5,7 +5,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
-import store from './state/store'
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor} from './state/store'
 import AddNewPayment from './components/AddNewPayment'
 import Home from './components/Home';
 import EditPayment from './components/EditPayment'
@@ -13,17 +14,19 @@ import EditPayment from './components/EditPayment'
 export default () => (
   <div className="App">
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/add-new-payment">
-            <AddNewPayment />
-          </Route>
-          <Route exact path="/edit-payment/:paymentId" component={EditPayment} />
-        </Switch>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/add-new-payment">
+              <AddNewPayment />
+            </Route>
+              <Route exact path="/edit-payment/:paymentId" component={EditPayment} />
+          </Switch>
+        </Router>
+      </PersistGate>
     </Provider>
   </div>
 )
